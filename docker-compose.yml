@@ -1,0 +1,17 @@
+version: '3.7'
+services:
+  aws:
+    image: 'localstack/localstack'
+    container_name: 'localstack'
+    environment:
+      - SERVICES=sqs,sns
+      - DEFAULT_REGION=us-east-1
+      - AWS_DEFAULT_REGION=us-east-1
+      - DEBUG=1
+      - DATA_DIR=/tmp/localstack/data
+    ports:
+      - "4566-4584:4566-4584"
+      - 8088:8080
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./resources/localstack/entrypoint:/docker-entrypoint-initaws.d
